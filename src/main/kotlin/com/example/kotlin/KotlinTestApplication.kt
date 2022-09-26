@@ -30,6 +30,7 @@ class MessageResource(val service: MessageService) {
     fun post(@RequestBody message: Message) {
         service.post(message)
     }
+
 }
 
 interface MessageRepository : CrudRepository<Message, String> {
