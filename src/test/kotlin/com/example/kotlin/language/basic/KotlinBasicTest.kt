@@ -128,6 +128,71 @@ class KotlinBasicTest {
 
     }
 
+    @Test
+    fun testForEachReturn() {
+        val list = listOf(1, 4, 6, 8, 12, 23, 40)
+        list.forEach {
+            if (it == 8) {
+                return
+            }
+            println("value is $it")
+        }
+        println("function end")
+    }
+
+    /**
+     * 标签限制的 return 允许我们从外层函数返回，最重要的一个用途就是从 lambda 表达式中返回。
+     * 通常情况下使用隐式标签更方便，该标签与接受该 lambda 的函数同名
+     */
+    @Test
+    fun testForEachReturn1() {
+        val list = listOf(1, 4, 6, 8, 12, 23, 40)
+        list.forEach {
+            if (it == 8) {
+                return@testForEachReturn1
+            }
+            println("value is $it")
+        }
+        println("function end")
+
+    }
+
+    @Test
+    fun testForEachReturn2() {
+        val list = listOf(1, 4, 6, 8, 12, 23, 40)
+        list.forEach {
+            if (it == 8) {
+                return@forEach
+            }
+            println("value is $it")
+        }
+        println("function end")
+    }
+
+    @Test
+    fun testForEachReturn3() {
+        val list = listOf(1, 4, 6, 8, 12, 23, 40)
+        list.forEach loop@{
+            if (it == 8) {
+                return@loop
+            }
+            println("value is $it")
+        }
+        println("function end")
+    }
+
+    @Test
+    fun testForEachReturn4() {
+        listOf(1, 2, 3, 4, 5).forEach(fun(value: Int) {
+            if (value == 3) {
+                //局部返回到匿名函数的调用者，即 forEach 循环
+                return
+            }
+            println("value is $value")
+        })
+        println("function end")
+    }
+
     //与 Java 不同，kotlin 中的 if 是作为表达式存在的，其可以拥有返回值
     //完全可以用来替代 Java 中的三元运算符，因此 kotlin 并没有三元运算符
     //如果 if 表达式分支是用于执行某个命令，那么此时的返回值类型就是 Unit ，此时的 if 语句就看起来和 Java 的一样了
