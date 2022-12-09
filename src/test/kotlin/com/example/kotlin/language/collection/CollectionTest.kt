@@ -2,7 +2,7 @@ package com.example.kotlin.language.collection;
 
 import org.junit.jupiter.api.Test;
 
-public class CollectionTest {
+class CollectionTest {
     @Test
     fun testCollection() {
         val numbers = mutableListOf("one", "two", "three", "four")
