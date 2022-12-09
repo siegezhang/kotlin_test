@@ -193,6 +193,60 @@ class KotlinBasicTest {
         println("function end")
     }
 
+    @Test
+    fun testElvis() {
+        fun check(name: String?) {
+            println(name ?: "default")
+        }
+        println(check(null))
+    }
+
+    @Test
+    fun testAs() {
+        fun check(any: Any?) {
+            val result = any as? String
+            println(result ?: println("is not String"))
+        }
+        check(null)
+    }
+
+    /**
+     * 非空断言用于把任何值转换为非空类型，如果对 null 值做非空断言，则会抛出异常
+     */
+    @Test
+    fun testDoubleNot() {
+        fun check(name: String?) {
+            println(name!!.length)
+        }
+
+        var name: String? = "leavesC"
+        check(name) //7
+
+        name = null
+        check(name) //kotlinNullPointerException
+    }
+
+    /**
+     *为可空类型定义扩展函数是一种更强大的处理 null 值的方式，可以允许接收者为 null 的调用，
+     * 并在该函数中处理 null ，而不是在确保变量不为 null 之后再调用它的方法
+     *
+     * isNullOrEmpty() 的方法签名如下所示，可以看到这是为可空类型 CharSequence? 定义的扩展函数，方法中已经处理了方法调用者为 null 的情况
+     * <code>
+     * @kotlin.internal.InlineOnly
+     * public inline fun CharSequence?.isNullOrEmpty(): Boolean {
+     *     contract {
+     *         returns(false) implies (this@isNullOrEmpty != null)
+     *     }
+     *     return this == null || this.length == 0
+     * }
+     *</code>
+     */
+    @Test
+    fun testEmptyExtension() {
+        val name: String? = null
+        println(name.isNullOrEmpty()) //true
+    }
+
     //与 Java 不同，kotlin 中的 if 是作为表达式存在的，其可以拥有返回值
     //完全可以用来替代 Java 中的三元运算符，因此 kotlin 并没有三元运算符
     //如果 if 表达式分支是用于执行某个命令，那么此时的返回值类型就是 Unit ，此时的 if 语句就看起来和 Java 的一样了
