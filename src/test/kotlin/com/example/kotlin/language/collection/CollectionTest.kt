@@ -1,4 +1,4 @@
-package com.example.kotlin.language.collection;
+package language.collection;
 
 import org.junit.jupiter.api.Test;
 
