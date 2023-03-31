@@ -21,15 +21,17 @@ data class Message(@Id val id: String?, val text: String)
 
 @RestController
 class MessageResource(val service: MessageService) {
-    @GetMapping
+    @GetMapping("/")
     fun index(): List<Message> = service.findMessages()
 
+    @GetMapping("/{id}")
+    fun index(@PathVariable id: String): List<Message> =
+        service.findMessageById(id)
 
-    @PostMapping
+    @PostMapping("/")
     fun post(@RequestBody message: Message) {
-        service.post(message)
+        service.save(message)
     }
-
 }
 
 interface MessageRepository : CrudRepository<Message, String> {

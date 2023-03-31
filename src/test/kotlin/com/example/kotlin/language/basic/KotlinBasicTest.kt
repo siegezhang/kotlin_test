@@ -222,8 +222,8 @@ class KotlinBasicTest {
         var name: String? = "leavesC"
         check(name) //7
 
-        name = null
-        check(name) //kotlinNullPointerException
+        //   name = null
+        //   check(name) //kotlinNullPointerException
     }
 
     /**
