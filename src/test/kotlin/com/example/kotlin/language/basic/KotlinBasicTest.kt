@@ -19,12 +19,16 @@ class KotlinBasicTest {
     @Test
     fun testOpenEnded() {
         var value = 0.6
-        when (value) {
+        var result = when (value) {
             in 0.0..<0.25 -> 1.0 // First quarter
             in 0.25..<0.5 -> 1 // Second quarter
             in 0.5..<0.75 -> 3 // Third quarter
             in 0.75..1.0 -> 4  // Last quarter  <- Note closed range here
+            else -> {
+                5
+            }
         }
+        println(result)
     }
 
     @Test
