@@ -64,15 +64,15 @@ class KotlinTest {
         printer.print() //DefaultPrinter print
     }
 
-    @OptIn(ExperimentalContracts::class)
+    @ExperimentalContracts
     fun calledOneTimeOnly(run: () -> Unit) {
-        // do something
         contract {
             callsInPlace(run, InvocationKind.EXACTLY_ONCE)
         }
         run()
     }
 
+    @ExperimentalContracts
     fun initValue() {
         val intValue: Int
         calledOneTimeOnly {
@@ -85,9 +85,9 @@ class KotlinTest {
 //        }
     }
 
-    fun getString(): String? {
-        return null
-    }
+//    fun getString(): String? {
+//        return null
+//    }
 
 //    @ExperimentalContracts
 //    fun Any?.isValidString(): Boolean {
@@ -96,7 +96,6 @@ class KotlinTest {
 //        }
 //        return this != null && this is String && this.length > 0
 //    }
-//
 //
 //    @ExperimentalContracts
 //    fun testString() {
@@ -113,9 +112,9 @@ class KotlinTest {
      * @receiver String?  接收类型
      * @return Boolean    是否为空
      */
-//    fun String?.isNullOrEmptyWithoutContract(): Boolean {
-//        return this == null || this.isEmpty()
-//    }
+    fun String?.isNullOrEmptyWithoutContract(): Boolean {
+        return this == null || this.isEmpty()
+    }
 //
 //    /**
 //     * 问题示例1 使用自定义函数判空，编译器无感知
