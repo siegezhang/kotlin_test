@@ -3,35 +3,33 @@ package com.example.kotlin.language.flow
 
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
 
 class FlowTest {
     @Test
     fun testReduce() {
-        listOf(1, 2, 3).reduce { a, b ->
+        println(listOf(1, 2, 3).reduce { a, b ->
             a + b
         }
+        )
 
 
     }
 
     @Test
-    suspend fun testFold() {
-        flowOf(1, 2, 3).runningFold("a") { a, b ->
-            a + b
-        }.collect {
-            println(it)
-        }
-
-        flowOf(1, 2, 3).runningReduce { a, b ->
-            a + b
-        }.collect {
-            println(it)
+    fun testFold() {
+        runBlocking {
+            flowOf(1, 2, 3).runningFold("a") { a, b ->
+                a + b
+            }.collect {
+                println(it)
+            }
         }
     }
 
     @Test
-    suspend fun testEmit() {
+    fun testEmit() = runBlocking {
         flow {
             emit(1)
             delay(590)
@@ -49,7 +47,7 @@ class FlowTest {
     }
 
     @Test
-    suspend fun testFlatMapMerge() {
+    fun testFlatMapMerge() = runBlocking {
         flowOf(1, 3).flatMapMerge {
             flowOf("$it a", "$it b")
         }.collect {
@@ -58,7 +56,7 @@ class FlowTest {
     }
 
     @Test
-    suspend fun testFlatMapConcat() {
+    fun testFlatMapConcat() = runBlocking {
         flowOf(1, 3).flatMapConcat {
             flowOf("a", "b", "c")
         }.collect {
@@ -67,7 +65,7 @@ class FlowTest {
     }
 
     @Test
-    suspend fun testBuffer() {
+    fun testBuffer() = runBlocking {
         flowOf("A", "B", "C", "D")
             .onEach {
                 println("1 $it")
@@ -83,7 +81,7 @@ class FlowTest {
     }
 
     @Test
-    suspend fun testCombine() {
+    fun testCombine() = runBlocking {
         flowOf(1, 3).combine(
             flowOf("a", "b", "c")
         ) { a, b -> b + a }
@@ -93,7 +91,7 @@ class FlowTest {
     }
 
     @Test
-    suspend fun testZip() {
+    fun testZip() = runBlocking {
         flowOf(1, 3).zip(
             flowOf("a", "b", "c")
         ) { a, b -> b + a }
@@ -103,7 +101,7 @@ class FlowTest {
     }
 
     @Test
-    suspend fun testDistinctUntilChanged() {
+    fun testDistinctUntilChanged() = runBlocking {
         flowOf(1, 1, 2, 2, 3, 1).distinctUntilChanged().collect {
             println(it)
         }
