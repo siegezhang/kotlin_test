@@ -1,12 +1,27 @@
 package com.example.kotlin.language.basic
 
 import org.junit.jupiter.api.Test
+import java.math.BigDecimal
 
 class KotlinBasicTest {
     @Test
     fun testIn() {
         for (i in 0..10 step 2)
             println(i)
+    }
+
+    @Test
+    fun testBigDecimal() {
+        val money1 = BigDecimal("12.50")
+        val money2 = BigDecimal("3.50")
+        val money3 = money1 + money2
+        val money4 = money1 - money2
+        val money5 = money1 * money2
+        val money6 = money1 / money2
+        println(money3)
+        println(money4)
+        println(money5)
+        println(money6)
     }
 
     @Test
