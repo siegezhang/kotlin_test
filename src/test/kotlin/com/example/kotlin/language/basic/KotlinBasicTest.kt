@@ -266,6 +266,20 @@ class KotlinBasicTest {
         println(name.isNullOrEmpty()) //true
     }
 
+    @Test
+    fun testEmptyExtension1() {
+        fun x(s: String) = println("of course")
+        fun x(vararg s: String) = println("WAT")
+        fun y(s: String?) = println("of course")
+        fun y(vararg s: String) = println("WAT")
+        fun z(s: String?) = println("of course")
+        fun z(vararg s: String?) = println("WAT")
+
+        x("a");
+        y("a");
+        z("a");
+    }
+
     //与 Java 不同，kotlin 中的 if 是作为表达式存在的，其可以拥有返回值
     //完全可以用来替代 Java 中的三元运算符，因此 kotlin 并没有三元运算符
     //如果 if 表达式分支是用于执行某个命令，那么此时的返回值类型就是 Unit ，此时的 if 语句就看起来和 Java 的一样了
